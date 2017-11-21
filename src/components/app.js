@@ -1,6 +1,6 @@
 import React from "react";
-
-import HelloWorld from "./helloWorld/helloWorld";
+import LoginPage from "./login/loginPage";
+import { Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
     constructor(props) {
@@ -8,7 +8,9 @@ class App extends React.Component {
     }
 
     render() {
-        return <HelloWorld />;
+        return (
+            <LoginPage />
+        );
     }
 }
 
