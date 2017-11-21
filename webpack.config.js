@@ -5,7 +5,7 @@ module.exports = {
         filename: "bundle.js",
         publicPath: "/"
     },
-    devServer: {
+    devServer: {k
         contentBase: __dirname + "/src"
     },
     module: {
