@@ -3,7 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { USER_ID } from "../../../constants";
 import { dataService } from "../../services/serviceData";
+import { storageService } from "../../services/serviceStorage";
+import { redirect } from "../../services/serviceRedirect";
 
 import { TextPost } from "../textPost";
 import { ImagePost } from "../imagePost";
@@ -30,6 +33,7 @@ class SinglePostPage extends React.Component {
     }
 
     bindEventHandlers() {
+        this.deletePost = this.deletePost.bind(this);
         this.postComment = this.postComment.bind(this);
     }
 
@@ -39,10 +43,20 @@ class SinglePostPage extends React.Component {
         this.getPost(type, id);
     }
 
+    cannotDeletePost(error) {
+        if (error.request) {
+            this.setState({ commentsError: "Unable to delete post." });
+        }
+    }
+
     cannotLoadComments(error) {
         if (error.request) {
             this.setState({ commentsError: "Cannot load comments." });
         }
+    }
+
+    deletePost(id) {
+        dataService.deletePost(id, response => redirect("/"), error => this.cannotDeletePost(error));
     }
 
     getComments(id) {
@@ -73,16 +87,28 @@ class SinglePostPage extends React.Component {
     }
 
     postComment(commentData) {
-        dataService.postComment(commentData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        dataService.postComment(commentData, comments => {
+            this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error);
+            scrollTo(0, document.body.scrollHeight);
+        });
     }
 
     renderPost(post) {
+        const userId = parseInt(storageService.getStorageItem(USER_ID));
+        let usersPost = "";
+
+        if (userId === post.userId) {
+            usersPost = true;
+        } else {
+            usersPost = false;
+        }
+
         if (post.type === "text") {
-            return <TextPost post={post} key={post.id} error={this.state.commentsError} />;
+            return <TextPost post={post} key={post.id} error={this.state.commentsError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post.type === "image") {
-            return <ImagePost post={post} key={post.id} error={this.state.commentsError} />;
+            return <ImagePost post={post} key={post.id} error={this.state.commentsError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post.type === "video") {
-            return <VideoPost post={post} key={post.id} error={this.state.commentsError} />;
+            return <VideoPost post={post} key={post.id} error={this.state.commentsError} usersPost={usersPost} deletePost={this.deletePost} />;
         }
     }
 
@@ -95,7 +121,7 @@ class SinglePostPage extends React.Component {
             <main className="container">
                 <div className="row w-100 mx-auto mb-4 mt-4">
                     <div className="w-100 col-sm-12 col-md-8 offset-md-2">
-                    
+
                         {this.renderPost(this.state.post)}
 
                         <AddComment onPostComment={this.postComment} id={id} />

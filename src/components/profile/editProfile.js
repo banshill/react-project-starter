@@ -82,24 +82,22 @@ class EditProfile extends React.Component {
 
         return (
             <div>
-                <div className="editForm">
+                <div>
                     <form>
-                        <label htmlFor="exampleInputText1">Name</label>
+                        <label>Name</label>
                         <input
                             type="text"
-                            className="form-control mb-3"
-                            id="exampleInputText1"
+                            className="form-control mb-2"
                             placeholder="Name"
                             name="name"
                             value={name}
                             onChange={this.handleInputChange}
                         />
 
-                        <label htmlFor="exampleInputEmail1">Contact Email</label>
+                        <label>Contact Email</label>
                         <input
                             type="email"
-                            className="form-control mb-3"
-                            id="exampleInputEmail1"
+                            className="form-control mb-2"
                             aria-describedby="emailHelp"
                             placeholder="Enter email"
                             name="email"
@@ -108,28 +106,26 @@ class EditProfile extends React.Component {
                         />
                         <small id="emailHelp" className="form-text text-muted mb-3">We will never share your email with anyone else.</small>
 
-                        <label htmlFor="exampleInputText2">Bio</label>
+                        <label>Bio</label>
                         <textarea
-                            className="form-control mb-3"
-                            id="exampleInputText2"
+                            className="form-control mb-2"
                             placeholder="Short Bio"
                             name="aboutShort"
                             value={aboutShort}
                             onChange={this.handleInputChange}
                         />
 
-                        <label htmlFor="exampleInputText3">About</label>
+                        <label>About</label>
                         <textarea
-                            className="form-control mb-3"
-                            id="exampleInputText3"
+                            className="form-control mb-2"
                             placeholder="About"
                             name="about"
-                            rows="5"
+                            rows="3"
                             value={about}
                             onChange={this.handleInputChange}
                         />
 
-                        <UploadImage uploadImage={this.newUploadedImage} />
+                        <UploadImage uploadImage={this.newUploadedImage} showCloseButton={false} />
 
                     </form>
                 </div>
@@ -141,11 +137,11 @@ class EditProfile extends React.Component {
                     }
                 </div>
 
-                <div>
-                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
+                <div className="float-right">
+                    <button className="btn buttonLight my-2 my-sm-0 mr-2" onClick={this.updateProfile}>
                         Save
                     </button>
-                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                    <button className="btn btn-outline-danger my-2 my-sm-0" onClick={this.props.toggleModal}>
                         Close
                     </button>
                 </div>

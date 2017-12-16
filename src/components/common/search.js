@@ -17,7 +17,6 @@ class Search extends React.Component {
 
     bindEventHandlers() {
         this.handleInput = this.handleInput.bind(this);
-
     }
 
     handleInput(event) {
@@ -34,14 +33,13 @@ class Search extends React.Component {
 
         return (
             <form className="mt-4 mb-4">
-                <div className="input-group search">
+                <div className="input-group">
                     <input className="form-control"
                         type="text" value={inputString}
                         onChange={this.handleInput}
                         placeholder="Search..." />
                 </div>
             </form>
-
         );
     }
 }

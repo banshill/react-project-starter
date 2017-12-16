@@ -26,7 +26,6 @@ class User {
     get avatarUrl() {
         return this._avatarUrl;
     }
-
 }
 
 export default User;

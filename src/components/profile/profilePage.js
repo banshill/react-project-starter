@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
@@ -96,46 +96,6 @@ class ProfilePage extends React.Component {
         this.updateProfile(this.state.edit);
     }
 
-    getModalStyle() {
-        if (screen.width < 579) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "15%",
-                    left: "8%",
-                    right: "8%",
-                    bottom: "15%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-
-                }
-            };
-
-        } else {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "15%",
-                    left: "30%",
-                    right: "30%",
-                    bottom: "15%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-                }
-            };
-        };
-    }
-
     render() {
 
         const { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = this.state.profile;
@@ -151,14 +111,24 @@ class ProfilePage extends React.Component {
 
                     <div className="col-12">
                         <div className="text-center ">
-                            <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
+                            <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow}>Edit Profile</button>
                         </div>
                     </div>
 
-                    <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
-                        <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} uploadImage={this.uploadImage} />
+                    <Modal
+                        open={show}
+                        onClose={this.toggleModalShow}
+                        showCloseIcon={false}
+                        classNames={{ modal: "custom-modal" }}
+                    >
+                        <EditProfile
+                            toggleModal={this.toggleModalShow}
+                            updateProfile={this.updateProfile}
+                            edit={this.state.edit}
+                            uploadImage={this.uploadImage}
+                        />
                     </Modal>
-                    
+
                 </div>
             </main>
         );

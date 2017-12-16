@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { USER_ID } from "../../constants";
@@ -36,9 +36,8 @@ class FeedPage extends React.Component {
                 image: "",
                 video: ""
             },
-            top: 10,
+            top: 20,
             hasMore: true,
-            backToTop: "hide"
         };
     }
 
@@ -99,13 +98,12 @@ class FeedPage extends React.Component {
         if (posts.length === postsCount) {
             this.setState({
                 hasMore: false,
-                backToTop: ""
             });
         }
 
         dataService.getPosts(top, posts => this.setState({
             posts: posts,
-            top: this.state.top + 10
+            top: this.state.top + 20
         }), error => this.handleNetworkRequestError(error));
     }
 
@@ -196,45 +194,6 @@ class FeedPage extends React.Component {
         this.sendPost("image", postData);
     }
 
-    getModalStyle() {
-        if (screen.width < 579) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-
-        } else {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-        };
-    }
-
     render() {
         const { show, validationError, modal, filterTitle, top, hasMore, backToTop } = this.state;
 
@@ -261,25 +220,41 @@ class FeedPage extends React.Component {
                         endMessage={
                             <p style={{ textAlign: "center" }}>
                                 <b>No more posts.</b>
-                            </p>
-                        }>
+                            </p>}
+                    >
+
                         {this.state.posts.map(post => this.renderPosts(post))}
+
                     </InfiniteScroll>
 
-                    <div className="row modalWrapper">
+                    <div className="row">
 
-                        <Modal isOpen={modal} style={this.getModalStyle()} >
-                            <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
+                        <Modal
+                            open={modal}
+                            onClose={this.toggleModalShow}
+                            little
+                            showCloseIcon={false}
+                            classNames={{ modal: "custom-modal" }}
+                        >
+                            <NewPost
+                                sendPost={this.sendPost}
+                                toggleModal={this.toggleModalShow}
+                                error={this.state.error}
+                                uploadImage={this.uploadImage}
+                            />
                         </Modal >
-
                     </div>
                 </div>
 
                 <div className="col-lg-2"></div>
 
-                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
+                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}>
+                    <i className="fa fa-plus" aria-hidden="true"></i>
+                </button>
 
-                <button onClick={this.backToTop} className={backToTop} >^</button>
+                <div className="backToTop">
+                    <i className="fa fa-chevron-up fa-3x" aria-hidden="true" onClick={this.backToTop}></i>
+                </div>
 
             </main >
         );

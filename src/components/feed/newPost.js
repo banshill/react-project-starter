@@ -142,34 +142,51 @@ class NewPost extends React.Component {
 
     render() {
         const { type, name, title, smallText, content, validationError, showImage, showTV } = this.state;
+        const youtubePlaceholder = "../../assets/images/youtube.jpg";
 
         return (
             <div>
                 <div className={showTV}>
                     <h2>{title}</h2>
                     <form>
-                        <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
                         {type === "text"
-                            ? <textarea
-                                name={name}
-                                value={content}
-                                onChange={this.handleInputChange}
-                            ></textarea>
-                            : <input
-                                type="text"
-                                className="form-control modalInput"
-                                id="exampleInputText1"
-                                name={name}
-                                value={content}
-                                onChange={this.handleInputChange}
-                            />
+                            ? <div>
+                                <label><small>{smallText}</small></label>
+                                <textarea
+                                    name={name}
+                                    value={content}
+                                    onChange={this.handleInputChange}
+                                    className="d-block w-100 mt-2"
+                                    rows="5"
+                                ></textarea>
+                            </div>
+
+                            : <div>
+                                <div className="mx-auto text-center mb-1 mt-3 w-100">
+                                    <img
+                                        src={youtubePlaceholder}
+                                        style={{ maxWidth: 30 + "rem" }}
+                                        className="w-100"
+                                    />
+                                </div>
+                                <label className="mt-1"><small>{smallText}</small></label>
+                                <input
+                                    type="text"
+                                    className="form-control modalInput"
+                                    id="exampleInputText1"
+                                    name={name}
+                                    value={content}
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
                         }
                     </form>
-                    <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
+
+                    <div className="mt-3 float-right">
+                        <button className="btn buttonLight my-2 my-sm-0 mr-2" onClick={this.sendPost}>
                             Post
                         </button>
-                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                        <button className="btn btn-outline-danger my-2 my-sm-0" onClick={this.props.toggleModal}>
                             Close
                         </button>
                     </div>
@@ -183,14 +200,37 @@ class NewPost extends React.Component {
                 </div>
 
                 <div className={showImage}>
-                    <h2>New Image Post</h2>
-                    <UploadImage uploadImage={this.newUploadedImage} />
+                    <div>
+                        <h2>New Image Post</h2>
+                        <UploadImage
+                            uploadImage={this.newUploadedImage}
+                            toggleModal={this.props.toggleModal}
+                            showCloseButton={true}
+                        />
+                    </div>
                 </div>
 
                 <div className="text-center modalButtons">
-                    <button className="buttonLight round modalRoundButtons" value="text" onClick={this.selectPostType}>T</button><p className="modalButtonsText">Text</p>
-                    <button className="buttonLight round modalRoundButtons" value="image" onClick={this.selectPostType}>I</button><p className="modalButtonsText" >Image</p>
-                    <button className="buttonLight round modalRoundButtons" value="video" onClick={this.selectPostType}>V</button>  <p className="modalButtonsText">Video</p>
+                    <button
+                        className="buttonLight round"
+                        value="text"
+                        onClick={this.selectPostType}
+                    >T</button>
+                    <p>Text</p>
+
+                    <button
+                        className="buttonLight round"
+                        value="image"
+                        onClick={this.selectPostType}
+                    >I</button>
+                    <p>Image</p>
+
+                    <button
+                        className="buttonLight round"
+                        value="video"
+                        onClick={this.selectPostType}
+                    >V</button>
+                    <p>Video</p>
                 </div>
             </div>
         );

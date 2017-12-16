@@ -1,5 +1,5 @@
 class Post {
-    constructor(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum ) {
+    constructor(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum) {
         this._id = id;
         this._dateCreated = dateCreated;
         this._userId = userId;
@@ -14,7 +14,7 @@ class Post {
     get id() {
         return this._id;
     }
-    
+
     get dateCreated() {
         return this._dateCreated;
     }
@@ -58,7 +58,6 @@ class Post {
     get commentsNum() {
         return this._commentsNum;
     }
-
 }
 
 export default Post;

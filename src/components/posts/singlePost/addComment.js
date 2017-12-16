@@ -56,8 +56,15 @@ class AddComment extends React.Component {
         return (
             <form className="w-100">
                 <div className="w-100">
-                    <textarea placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} style={{ width: 80 + "%" }}></textarea>
-                    <button onClick={this.postComment} style={{ width: 20 + "%" }} >Send</button>
+                    <textarea
+                        placeholder="Add your comment..."
+                        value={this.state.newComment}
+                        onChange={this.handleInputChange}
+                        className="w-100"
+                        rows="4">
+                    </textarea>
+
+                    <button onClick={this.postComment} className="btn buttonDark float-right mb-4">Post</button>
                 </div>
             </form>
         );

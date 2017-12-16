@@ -8,7 +8,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
-        
+
         this.bindEventHandlers();
     }
 
@@ -79,22 +79,46 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="form mx-auto" style={{width: 90 + "%"}}>
+            <div className="form mx-auto p-4" style={{ width: 90 + "%" }}>
                 <div>
-                    <Link to="/login"><button className="btn btn-dark ">Login</button></Link>
-                    <Link to="/register"><button className="btn btn-dark">Register</button></Link>
+                    <Link to="/login">
+                        <button className="btn btn-dark mr-2 mb-2 active">Login</button>
+                    </Link>
+                    <Link to="/register">
+                        <button className="btn btn-dark mb-2">Register</button>
+                    </Link>
                 </div>
 
                 <form>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                        <small id="emailHelp" className="form-text">We will never share your email with anyone else.</small>
+                        <label>Email address</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Enter email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleInputChange}
+                        />
+                        <small
+                            id="emailHelp"
+                            className="form-text">
+                            We will never share your email with anyone else.
+                        </small>
                     </div>
+
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
                     </div>
+
                     <div className="error">
                         {this.state.error
                             ? <p>{this.state.error}</p>
@@ -103,7 +127,6 @@ class LoginForm extends React.Component {
                     </div>
 
                     <button type="submit" className="btn buttonDark" onClick={this.logIn}>Login</button>
-
                 </form>
             </div>
         );

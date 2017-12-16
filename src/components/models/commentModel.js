@@ -40,7 +40,6 @@ class CommentModel {
     get authorImage() {
         return this._authorImage;
     }
-
 }
 
 export default CommentModel;

@@ -93,32 +93,67 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <div className="form mx-auto" style={{width: 90 + "%"}}>
+            <div className="form mx-auto p-4" style={{ width: 90 + "%" }}>
                 <div>
-                    <Link to="/login"><button className="btn btn-light">Login</button></Link>
-                    <Link to="/register"><button className="btn btn-light">Register</button></Link>
+                    <Link to="/login">
+                        <button className="btn btn-dark mr-2 mb-2">Login</button>
+                    </Link>
+                    <Link to="/register">
+                        <button className="btn btn-dark mb-2 active">Register</button></Link>
                 </div>
 
                 <form>
                     <div className="form-group">
-                        <label htmlFor="exampleInputText1">Full Name</label>
-                        <input type="text" className="form-control" id="exampleInputText1" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Full Name"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleInputChange}
+                        />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                        <small id="emailHelp" className="form-text text-muted">We will never share your email with anyone else.</small>
+                        <label>Email address</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Enter email"
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.handleInputChange}
+                        />
+                        <small
+                            id="emailHelp"
+                            className="form-text text-muted">
+                            We will never share your email with anyone else.
+                        </small>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Min 6 characters" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Min 6 characters"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                        />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" className="form-control" id="exampleConfirmPassword1" placeholder="Confirm password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} />
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Confirm password"
+                            name="confirmPassword"
+                            value={this.state.confirmPassword}
+                            onChange={this.handleInputChange}
+                        />
                     </div>
 
                     <div className="error">

@@ -15,7 +15,8 @@ class UploadImage extends React.Component {
     initState() {
         return {
             image: "",
-            previewImage: "",
+            previewImage: "../../assets/images/placeholder.png",
+            showCloseButton: this.props.showCloseButton,
             validationError: ""
         };
     }
@@ -51,7 +52,7 @@ class UploadImage extends React.Component {
         event.preventDefault();
 
         const image = this.state.image;
-        
+
         let postData = new FormData();
         postData.append("file", image);
 
@@ -61,24 +62,48 @@ class UploadImage extends React.Component {
     }
 
     render() {
-        const { image, previewImage, validationError } = this.state;
-        const previewStyle = {
-            width: 15 + "rem",
-            maxHeight: 15 + "rem"
-        };
+        const { image, previewImage, showCloseButton, validationError } = this.state;
+        const previewStyle = showCloseButton
+            ? {
+                maxWidth: 25 + "rem",
+                maxHeight: 25 + "rem"
+            }
+            : {
+                maxWidth: 18 + "rem",
+                maxHeight: 18 + "rem"
+            };
 
         return (
-            <div>
+            <div className="position-relative">
                 <label>Select image for upload:</label>
-                <input type="file" onChange={this.previewImage} />
+                <input
+                    type="file"
+                    onChange={this.previewImage}
+                    className="d-block"
+                />
+
                 <div className="error">
                     {validationError
                         ? <p>{validationError}</p>
                         : <p></p>
                     }
                 </div>
-                <img src={previewImage} style={previewStyle} className="d-block mx-auto" />
-                <button onClick={this.uploadImage} >Upload</button>
+
+                <img
+                    src={previewImage}
+                    style={previewStyle}
+                    className="d-block mx-auto mb-3 w-100"
+                />
+
+                <div className="text-right">
+                    <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0">Upload</button>
+                    {showCloseButton
+                        ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-2" onClick={this.props.toggleModal}>
+                            Close
+                        </button>
+                        : <p></p>
+                    }
+                </div>
             </div>
         );
     }
